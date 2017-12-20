@@ -18,8 +18,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="List.cpp">
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="List.h">
       <Filter>Заголовочные файлы</Filter>
-    </ClCompile>
+    </ClInclude>
   </ItemGroup>
 </Project>
