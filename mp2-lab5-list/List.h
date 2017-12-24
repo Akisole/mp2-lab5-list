@@ -29,9 +29,9 @@ public:
 	}
 	void SetPoz(int p) {
 		Reset();							
-		for (int i=0; i<p-1; i++)			//?
+		for (int i=0; i<p; i++) {			
 			GoNext();
-		poz++;
+		}
 	}
 
 	void InsFirst (T elem) {
@@ -48,13 +48,12 @@ public:
 		}
 		Size++;
 	}
-
 	void InsLast (T elem) {
 		TLink<T> *tmp = new TLink<T>;
 		tmp -> val = elem;
 		tmp ->pNext  = pStop;
 		if(pFirst==pStop) {
-			pFirst=pLast=pCurr=tmp;				//?
+			pFirst=pLast=pCurr=tmp;			
 			poz=0;
 		}
 		else {
@@ -70,8 +69,8 @@ public:
 		TLink<T> *tmp = new TLink<T>;
 		tmp -> val = elem;
 		tmp ->pNext  = pCurr;
-		pPrev -> pNext = pCurr;
-		pCurr -> pNext = tmp;
+		pPrev -> pNext = tmp;
+		pCurr  = tmp;
 		Size++;
 	}
 }
@@ -91,8 +90,9 @@ public:
 	bool IsEnd() {
 		return (pCurr==pStop);
 	}
+
 	void DelFirst() {
-		if(size==1) {
+		if(Size==1) {
 			delete pFirst;
 			pFirst=pLast=pCurr=pPrev=pStop;
 		}
@@ -102,46 +102,41 @@ public:
 			delete tmp;
 		}
 		Size--;
-		if (pos>0)
+		if (poz>0)
 			poz--;
 	}
-
 	void DelCurr() {
-		if(size==1) 
-			DelFirst()
+		if(Size==1) 
+			DelFirst();
 		else {
 			TLink<T> *tmp = pCurr;
 			pCurr = pCurr -> pNext;
 			pPrev -> pNext = pCurr;
 			delete tmp;
 			Size--;
-			if (pos>0)
+			if (poz==Size)
 				poz--;
 		}
 	}
-
 	void DelLast() {
-	if(size==1) 
-		DelFirst()
+	if(Size==1) 
+		DelFirst();
 	else {
-		TLink<T> *tmp_prev = pPrev;
 		int tmp_p = poz;
 
 		Reset();
-		for(int i=poz; i<Size-1; GoNext()) {}
+		for(int i=0; i<Size-1; GoNext(), i++) {}
 		pPrev -> pNext = pStop;
 		pLast=pPrev;
 		delete pCurr;
 
-		pPrev=tmp_prev;
-		pCurr=pPrev->pNext;
-		poz=tmp_p;
-
-		delete tmp_prev;
-
 		Size--;
-		if (pos>0)
-			poz--;
+		if (tmp_p==Size)
+			SetPoz(tmp_p-1);
+		else 
+			SetPoz(tmp_p);
+
+		poz=tmp_p;
 	}
 }
 
@@ -151,11 +146,8 @@ public:
 	  int tmp_pos = l.GetPoz();
 	  int i=0;
 	for (l.Reset(); !l.IsEnd(); l.GoNext())
-			out << l.GetCurr() << ' ';
-	
-	l.Reset();
-	for (i; i<tmp_pos; i++)
-		l.GoNext();
+			out << l.GetCurr() << ' ';	
+	l.SetPoz(tmp_pos);
     return out;
   }
 
