@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mp2-lab5-list", "mp2-lab5-list\mp2-lab5-list.vcxproj", "{C7B876FF-8305-45F4-8306-7214C9AB3E19}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mp2-lab6-polinom", "mp2-lab6-polinom\mp2-lab6-polinom.vcxproj", "{0385A26D-6B5D-4D01-801B-486DE42D2AC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{C7B876FF-8305-45F4-8306-7214C9AB3E19}.Debug|Win32.Build.0 = Debug|Win32
 		{C7B876FF-8305-45F4-8306-7214C9AB3E19}.Release|Win32.ActiveCfg = Release|Win32
 		{C7B876FF-8305-45F4-8306-7214C9AB3E19}.Release|Win32.Build.0 = Release|Win32
+		{0385A26D-6B5D-4D01-801B-486DE42D2AC2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0385A26D-6B5D-4D01-801B-486DE42D2AC2}.Debug|Win32.Build.0 = Debug|Win32
+		{0385A26D-6B5D-4D01-801B-486DE42D2AC2}.Release|Win32.ActiveCfg = Release|Win32
+		{0385A26D-6B5D-4D01-801B-486DE42D2AC2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

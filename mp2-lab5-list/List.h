@@ -10,6 +10,7 @@ struct TLink
 
 template <class T>
 class TList {
+protected:
 	TLink<T> *pFirst, *pLast, *pCurr, *pPrev, *pStop;
 	int Size, poz;
 public:
