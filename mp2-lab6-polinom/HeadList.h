@@ -22,18 +22,18 @@ public:
 		}
 		else {
 			Reset();	
-			while (pCurr->val < elem && pCurr->pNext != pHead) {
+			while (pCurr->val > elem && pCurr->pNext != pHead) {
 				pPrev = pCurr;
 				pCurr = pCurr->pNext;
 			}
 			
-			if (pCurr->val < elem && pCurr->pNext == pHead) {
+			if (pCurr->val > elem && pCurr->pNext == pHead) {
 				pCurr->pNext = tmp;
 				tmp -> pNext = pHead;
 				pLast = tmp;
 				Size++;
 			}
-			 else if (elem < pCurr->val){
+			 else if (elem > pCurr->val){
 				tmp->pNext = pCurr;
 				pPrev->pNext = tmp;
 				pPrev = tmp;

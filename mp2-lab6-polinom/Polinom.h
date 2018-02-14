@@ -6,6 +6,7 @@ struct TMonom
 	double coeff;
 	int x, y, z;
 };
+
 bool operator<(const TMonom& p, const TMonom& g) {
 	bool k=false;
 	if (p.x==g.x) {
@@ -23,6 +24,122 @@ bool operator<(const TMonom& p, const TMonom& g) {
 	else if (p.x<g.x)
 		k=true;	
 	return k;
+}
+bool operator>(const TMonom& p, const TMonom& g) {
+	bool k=false;
+	if (p.x==g.x) {
+		if (p.y==g.y) {
+			if (p.z==g.z) {
+				if (p.coeff>g.coeff)
+					k=true;
+			}
+			else if (p.z>g.z)
+				k=true;
+		}
+		else if (p.y>g.y)
+			k=true;
+	}
+	else if (p.x>g.x)
+		k=true;	
+	return k;
+}
+/*
+bool operator<(const TMonom& p, const TMonom& g) {
+	if (p.x<g.x) {
+		return true;
+	} 
+	else 
+	{
+		if (p.x>g.x) {
+			return false;
+		}
+		else 
+		{
+			if (p.x==g.x) 
+			{
+				if (p.y<g.y) {
+					return true;
+				}
+				else 
+				{
+					if (p.y>g.y) {
+						return false;
+					}
+						else 
+						{
+							if (p.y==g.y) 
+							{
+								if (p.z<g.z) {
+									return true;
+								}
+								else 
+								{
+									if (p.z>g.z) {
+										return false;
+									}
+								}
+							}
+					}
+				}
+			}
+		}
+	}
+}
+bool operator>(const TMonom& p, const TMonom& g) {
+	if (p.x>g.x) {
+		return true;
+	} 
+	else 
+	{
+		if (p.x<g.x) {
+			return false;
+		}
+		else 
+		{
+			if (p.x==g.x) 
+			{
+				if (p.y>g.y) {
+					return true;
+				}
+				else 
+				{
+					if (p.y<g.y) {
+						return false;
+					}
+						else 
+						{
+							if (p.y==g.y) 
+							{
+								if (p.z>g.z) {
+									return true;
+								}
+								else 
+								{
+									if (p.z<g.z) {
+										return false;
+									}
+								}
+							}
+					}
+				}
+			}
+		}
+	}
+}
+*/
+bool operator==(const TMonom& p, const TMonom& g) {
+	bool k=false;
+	if (p.x==g.x && p.y==g.y && p.z==g.z)
+		k=true;
+	return k;
+}
+
+void operator+=(const TMonom& p, const TMonom& g) {
+	if (p==g)
+		(double)p.coeff += g.coeff;
+	else
+		throw -1;
+
 }
 TMonom operator*(const TMonom& p, const TMonom& g) {
 	TMonom tmp;
@@ -76,6 +193,45 @@ public:
 		return tmp_p;
 	}
 
+	void InsByOrder (const TMonom& m) {
+		for(Reset(); !IsEnd(); GoNext()) {
+			if (pCurr->val == m) {
+				pCurr->val.coeff += m.coeff;
+				if (pCurr->val.coeff == 0)
+					DelCurr();
+				return;
+			}
+			if (pCurr->val < m) {
+				InsCurr(m);
+				return;
+			}
+		}
+		InsLast(m);
+	}
+	void operator+=(TPolinom Q) {
+		Reset();
+		Q.Reset();
+		while (!IsEnd() || !Q.IsEnd()) {
+			if(pCurr->val == Q.pCurr->val) {
+				pCurr->val.coeff += Q.pCurr->val.coeff;
+				if (pCurr->val.coeff == 0) {
+					DelCurr();
+					Q.GoNext();
+				} 
+				else if (pCurr->val.coeff != 0) {
+					Q.GoNext(); GoNext();
+					}
+				Q.GoNext();
+			}
+			else if (pCurr->val < Q.pCurr->val) {
+				InsCurr(Q.pCurr->val);
+				Q.GoNext();
+			}
+			else					// P>Q
+				GoNext();
+		}
+	}
+
 
 
 	void GetCurr() {
@@ -92,12 +248,17 @@ public:
 	friend ostream& operator<<(ostream &out, TPolinom &p)
   {
 	int tmp_pos = p.GetPoz();
-	out << p.GetHeadCof() << " ";
 	for (p.Reset(); !p.IsEnd(); p.GoNext()) {
 			p.GetCurr();
-			out	<< ' ';	
+			out	<< " ";	
 	}
+
+//	if (p.GetHeadCof() < 0)
+//		out << p.GetHeadCof() << endl;
+//	else
+//		out << "+ " << p.GetHeadCof() << endl;
 	p.SetPoz(tmp_pos);
+
     return out;
   }
 
